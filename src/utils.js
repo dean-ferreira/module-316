@@ -38,7 +38,52 @@ function validateEmail(emailValue) {
     return 'VALID'; // Valid email
 }
 
+function validatePassword(passwordValue, confirmPasswordValue, usernameValue) {
+    // Check if password and confirmPassword match
+    if (passwordValue != confirmPasswordValue) {
+        return 'Passwords do not match.';
+    }
+
+    // Check if password is not blank
+    if (!passwordValue || !confirmPasswordValue) {
+        return 'Password cannot be blank.';
+    }
+
+    // Check if password is at least 12 characters long
+    if (passwordValue.length < 12) {
+        return 'Password must be at least 12 characters long.';
+    }
+
+    // Check if password has at least one uppercase and one lowercase letter
+    if (!/[A-Z]/.test(passwordValue) || !/[a-z]/.test(passwordValue)) {
+        return 'Password must have at least one uppercase and one lowercase letter.';
+    }
+
+    // Check if password contains at least one number
+    if (!/\d/.test(passwordValue)) {
+        return 'Password must contain at least one number.';
+    }
+
+    // Check if password contains at least one special character
+    if (!/[!@#$%^&*]/.test(passwordValue)) {
+        return 'Password must contain at least one special character.';
+    }
+
+    // Check if password contains the word "password" (case-insensitive)
+    if (passwordValue.toLowerCase().includes('password')) {
+        return "Password cannot contain the word 'password'.";
+    }
+
+    // Check if password contains the username (case-insensitive)
+    if (passwordValue.toLowerCase().includes(usernameValue.toLowerCase())) {
+        return 'Password cannot contain the username.';
+    }
+
+    return 'VALID'; // Valid password
+}
+
 module.exports = {
     validateUsername,
     validateEmail,
+    validatePassword,
 };

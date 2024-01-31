@@ -1,4 +1,8 @@
-const { validateUsername, validateEmail } = require('../src/utils');
+const {
+    validateUsername,
+    validateEmail,
+    validatePassword,
+} = require('../src/utils');
 
 describe('validateUsername', () => {
     test('Blank username should be invalid', () => {
@@ -64,5 +68,94 @@ describe('validateEmail', () => {
     test('Email with numbers and special characters should return "VALID"', () => {
         const result = validateEmail('user123@yahoo.com');
         expect(result).toBe('VALID');
+    });
+});
+
+describe('validatePassword', () => {
+    test('Valid password should return VALID', () => {
+        const password = 'SecureP@ssw0rd';
+        const confirmPassword = 'SecureP@ssw0rd';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe('VALID');
+    });
+
+    test('Passwords that do not match should return "Passwords do not match."', () => {
+        const password = 'Password123!';
+        const confirmPassword = 'DifferentPassword123!';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe('Passwords do not match.');
+    });
+
+    test('Short password should return "Password must be at least 12 characters long."', () => {
+        const password = 'ShortP@ss';
+        const confirmPassword = 'ShortP@ss';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe('Password must be at least 12 characters long.');
+    });
+
+    test('Password missing uppercase letter should return "Password must have at least one uppercase and one lowercase letter."', () => {
+        const password = 'lowercase123!';
+        const confirmPassword = 'lowercase123!';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe(
+            'Password must have at least one uppercase and one lowercase letter.'
+        );
+    });
+
+    test('Password missing lowercase letter should return "Password must have at least one uppercase and one lowercase letter."', () => {
+        const password = 'UPPERCASE123!';
+        const confirmPassword = 'UPPERCASE123!';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe(
+            'Password must have at least one uppercase and one lowercase letter.'
+        );
+    });
+
+    test('Password missing number should return "Password must contain at least one number."', () => {
+        const password = 'PWWithoutNumbers!';
+        const confirmPassword = 'PWWithoutNumbers!';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe('Password must contain at least one number.');
+    });
+
+    test('Password missing special character should return "Password must contain at least one special character."', () => {
+        const password = 'SpecialCharacter123';
+        const confirmPassword = 'SpecialCharacter123';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe(
+            'Password must contain at least one special character.'
+        );
+    });
+
+    test('Password containing "password" should return "Password cannot contain the word \'password\'."', () => {
+        const password = 'Mypassword123!';
+        const confirmPassword = 'Mypassword123!';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe("Password cannot contain the word 'password'.");
+    });
+
+    test('Password containing the username should return "Password cannot contain the username."', () => {
+        const password = 'user123AwesomePW!';
+        const confirmPassword = 'user123AwesomePW!';
+        const username = 'user123';
+
+        const result = validatePassword(password, confirmPassword, username);
+        expect(result).toBe('Password cannot contain the username.');
     });
 });
