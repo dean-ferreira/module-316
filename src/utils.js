@@ -19,6 +19,11 @@ export function validateUsername(usernameValue) {
     if (/[^a-zA-Z0-9]/.test(usernameValue)) {
         return 'Username cannot contain any special characters or whitespace.';
     }
+
+    if (localStorage.getItem(usernameValue)) {
+        return 'Username already exists';
+    }
+
     // Valid Username
     return 'VALID';
 }

@@ -37,5 +37,16 @@ registrationForm.addEventListener('submit', function (event) {
     } else if (!acceptTermsCheckbox.checked) {
         event.preventDefault();
         displayError('Terms and Conditions must be accepted.');
+    } else if (
+        usernameResult === 'VALID' &&
+        emailResult === 'VALID' &&
+        passwordResult === 'VALID'
+    ) {
+        const newUser = {
+            username: usernameInput.value.toLowerCase(),
+            email: emailInput.value.toLowerCase(),
+            password: passwordInput.value,
+        };
+        localStorage.setItem(newUser.username, newUser);
     }
 });
