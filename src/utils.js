@@ -23,6 +23,22 @@ function validateUsername(usernameValue) {
     return 'VALID';
 }
 
+function validateEmail(emailValue) {
+    // Valid email patter
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // Check if the email matches the valid email format
+    if (!emailPattern.test(emailValue)) {
+        return 'Invalid email address.';
+    }
+    // Check if the email is from the domain "example.com"
+    if (emailValue.endsWith('@example.com')) {
+        return 'Emails from "example.com" domain are not allowed.';
+    }
+
+    return 'VALID'; // Valid email
+}
+
 module.exports = {
     validateUsername,
+    validateEmail,
 };

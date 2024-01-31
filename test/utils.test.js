@@ -1,4 +1,4 @@
-const { validateUsername } = require('../src/utils');
+const { validateUsername, validateEmail } = require('../src/utils');
 
 describe('validateUsername', () => {
     test('Blank username should be invalid', () => {
@@ -34,6 +34,35 @@ describe('validateUsername', () => {
 
     test('Valid username', () => {
         const result = validateUsername('validusername');
+        expect(result).toBe('VALID');
+    });
+});
+
+describe('validateEmail', () => {
+    test('Invalid email format', () => {
+        const result = validateEmail('www.email.com');
+        expect(result).toBe('Invalid email address.');
+    });
+
+    test('Prohibit "example.com"', () => {
+        const result = validateEmail('valid_email@example.com');
+        expect(result).toBe(
+            'Emails from "example.com" domain are not allowed.'
+        );
+    });
+
+    test('Valid email format', () => {
+        const result = validateEmail('user@email.com');
+        expect(result).toBe('VALID');
+    });
+
+    test('Email from other domains should return "VALID"', () => {
+        const result = validateEmail('user@gmail.com');
+        expect(result).toBe('VALID');
+    });
+
+    test('Email with numbers and special characters should return "VALID"', () => {
+        const result = validateEmail('user123@yahoo.com');
         expect(result).toBe('VALID');
     });
 });
