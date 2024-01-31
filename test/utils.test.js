@@ -1,8 +1,8 @@
-const {
-    validateUsername,
+import {
     validateEmail,
     validatePassword,
-} = require('../src/utils');
+    validateUsername,
+} from '../src/utils.js';
 
 describe('validateUsername', () => {
     test('Blank username should be invalid', () => {

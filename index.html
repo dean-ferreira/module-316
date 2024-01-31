@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="src/styles.css" />
     <!-- Font Awesome for Icons -->
     <script src="https://kit.fontawesome.com/d8f052c6cf.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="src/index.js" defer></script>
+    <script type="module" src="src/index.js" defer></script>
 </head>
 
 <body>
@@ -22,17 +22,17 @@
                 <input id="username" name="username" type="text" placeholder="Username" />
                 <span class="input-icon"><i class="fa-solid fa-user"></i></span><br />
 
-                <input name="email" type="text" placeholder="Email" />
+                <input id="email" name="email" type="text" placeholder="Email" />
                 <span class="input-icon"><i class="fa-solid fa-envelope"></i></span><br />
 
-                <input name="password" type="text" placeholder="Password" />
+                <input id="password" name="password" type="text" placeholder="Password" />
                 <span class="input-icon"><i class="fa-solid fa-key"></i></span><br />
 
-                <input name="passwordCheck" type="text" placeholder="Repeat Password" />
+                <input id="passwordCheck" name="passwordCheck" type="text" placeholder="Repeat Password" />
                 <span class="input-icon"><i class="fa-solid fa-key"></i></span><br /><br />
 
                 <div class="flex-row">
-                    <input name="terms" type="checkbox" />
+                    <input id="terms" name="terms" type="checkbox" />
                     <label for="terms">I agree to the&nbsp;<a href="#">Terms of Use</a>.</label>
                     <input type="submit" value="Register" />
                 </div>

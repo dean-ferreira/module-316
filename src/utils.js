@@ -1,4 +1,4 @@
-function validateUsername(usernameValue) {
+export function validateUsername(usernameValue) {
     // The username cannot be blank.
     if (usernameValue.length == 0) {
         return 'Username cannot be blank.';
@@ -23,7 +23,7 @@ function validateUsername(usernameValue) {
     return 'VALID';
 }
 
-function validateEmail(emailValue) {
+export function validateEmail(emailValue) {
     // Valid email patter
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     // Check if the email matches the valid email format
@@ -38,7 +38,11 @@ function validateEmail(emailValue) {
     return 'VALID'; // Valid email
 }
 
-function validatePassword(passwordValue, confirmPasswordValue, usernameValue) {
+export function validatePassword(
+    passwordValue,
+    confirmPasswordValue,
+    usernameValue
+) {
     // Check if password and confirmPassword match
     if (passwordValue != confirmPasswordValue) {
         return 'Passwords do not match.';
@@ -81,9 +85,3 @@ function validatePassword(passwordValue, confirmPasswordValue, usernameValue) {
 
     return 'VALID'; // Valid password
 }
-
-module.exports = {
-    validateUsername,
-    validateEmail,
-    validatePassword,
-};
