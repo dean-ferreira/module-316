@@ -1,5 +1,6 @@
 import {
     validateEmail,
+    validateLogin,
     validatePassword,
     validateUsername,
 } from '../src/utils.js';
@@ -157,5 +158,46 @@ describe('validatePassword', () => {
 
         const result = validatePassword(password, confirmPassword, username);
         expect(result).toBe('Password cannot contain the username.');
+    });
+});
+
+describe('validateLogin', () => {
+    test('Blank usernames should return "Username cannot be blank"', () => {
+        const username = '';
+        const password = 'SecureP@ssw0rd';
+        const user =
+            '{"username":"admin","email":"admin@gmail.com","password":"SecureP@ssw0rd"}';
+
+        const result = validateLogin(username, password, user);
+        expect(result).toBe('Username cannot be blank.');
+    });
+
+    test('Blank passwords should return "Password cannot be blank"', () => {
+        const username = 'admin';
+        const password = '';
+        const user =
+            '{"username":"admin","email":"admin@gmail.com","password":"SecureP@ssw0rd"}';
+
+        const result = validateLogin(username, password, user);
+        expect(result).toBe('Password cannot be blank.');
+    });
+
+    test('Usernames not found should return "Username does not exist."', () => {
+        const username = 'admin';
+        const password = 'SecureP@ssw0rd';
+        const user = null;
+
+        const result = validateLogin(username, password, user);
+        expect(result).toBe('Username does not exist.');
+    });
+
+    test('Successful login should return "VALID"', () => {
+        const username = 'admin';
+        const password = 'SecureP@ssw0rd';
+        const user =
+            '{"username":"admin","email":"admin@gmail.com","password":"SecureP@ssw0rd"}';
+
+        const result = validateLogin(username, password, user);
+        expect(result).toBe('VALID');
     });
 });

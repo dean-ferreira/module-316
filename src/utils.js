@@ -20,10 +20,6 @@ export function validateUsername(usernameValue) {
         return 'Username cannot contain any special characters or whitespace.';
     }
 
-    if (localStorage.getItem(usernameValue)) {
-        return 'Username already exists';
-    }
-
     // Valid Username
     return 'VALID';
 }
@@ -89,4 +85,24 @@ export function validatePassword(
     }
 
     return 'VALID'; // Valid password
+}
+
+export function validateLogin(usernameValue, passwordValue, storedUser) {
+    if (usernameValue.length === 0) {
+        return 'Username cannot be blank.';
+    }
+    if (passwordValue.length === 0) {
+        return 'Password cannot be blank.';
+    }
+    if (!storedUser) {
+        return 'Username does not exist.';
+    } else {
+        const userObj = JSON.parse(storedUser);
+        if (passwordValue !== userObj.password) {
+            return 'Incorrect password.';
+        }
+        if (passwordValue === userObj.password) {
+            return 'VALID';
+        }
+    }
 }
