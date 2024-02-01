@@ -1,4 +1,9 @@
-import { validateEmail, validatePassword, validateUsername } from './utils.js';
+import {
+    validateEmail,
+    validateLogin,
+    validatePassword,
+    validateUsername,
+} from './utils.js';
 
 // Constants and Variables
 const errorDisplay = document.getElementById('errorDisplay');
@@ -8,6 +13,11 @@ const passwordInput = document.getElementById('password');
 const confirmPasswordInput = document.getElementById('passwordCheck');
 const acceptTermsCheckbox = document.getElementById('terms');
 const registrationForm = document.getElementById('registration');
+
+const loginUsernameInput = document.getElementById('login-username');
+const loginPasswordInput = document.getElementById('login-password');
+const persistCheckbox = document.getElementById('persist');
+const loginForm = document.getElementById('login');
 
 // Functions
 function displayError(errorMsg) {
@@ -37,6 +47,9 @@ registrationForm.addEventListener('submit', function (event) {
     } else if (!acceptTermsCheckbox.checked) {
         event.preventDefault();
         displayError('Terms and Conditions must be accepted.');
+    } else if (!localStorage.getItem(usernameInput.value)) {
+        event.preventDefault();
+        displayError('Username already exists.');
     } else if (
         usernameResult === 'VALID' &&
         emailResult === 'VALID' &&
@@ -47,6 +60,25 @@ registrationForm.addEventListener('submit', function (event) {
             email: emailInput.value.toLowerCase(),
             password: passwordInput.value,
         };
-        localStorage.setItem(newUser.username, newUser);
+        localStorage.setItem(newUser.username, JSON.stringify(newUser));
+    }
+});
+
+loginForm.addEventListener('submit', function (event) {
+    const loginResult = validateLogin(
+        loginUsernameInput.value,
+        loginPasswordInput.value,
+        localStorage.getItem(loginUsernameInput.value.toLowerCase())
+    );
+    console.log(loginResult);
+    if (loginResult !== 'VALID') {
+        event.preventDefault();
+        displayError(loginResult);
+    } else {
+        if (persistCheckbox.checked) {
+            alert("Welcome back, we'll keep you logged in.");
+        } else {
+            alert('Welcome back.');
+        }
     }
 });
