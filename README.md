@@ -1,4 +1,4 @@
-# module-316
+# sba-316
 
 ## About the Project
 
@@ -13,5 +13,7 @@ This assessment measures understanding of the Document Object Model (DOM) and ca
 
 ## Built With
 
+-   HTML
+-   CSS
 -   JavaScript
 -   npm
