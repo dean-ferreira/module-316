@@ -15,6 +15,7 @@ const calculator = new Calculator(
     currOperandTextElement
 );
 
+const changeColorButton = document.createElement('button');
 changeColorButton.innerText = 'Change Color';
 calcBody.appendChild(changeColorButton);
 
@@ -47,3 +48,16 @@ deleteButton.addEventListener('click', (button) => {
     calculator.delete();
     calculator.updateDisplay();
 });
+
+changeColorButton.addEventListener('click', (button) => {
+    changeColor();
+});
+
+// Functions
+function changeColor() {
+    const display = document.getElementById('display');
+    const styles = ['display-light', 'display-dark'];
+    var currentClass = display.className;
+    var newIndex = (styles.indexOf(currentClass) + 1) % styles.length;
+    display.setAttribute('class', styles[newIndex]);
+}
