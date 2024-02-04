@@ -1,7 +1,7 @@
 import { Calculator } from './Calculator.js';
 
 // Constants and Variables
-const calcBody = document.getElementById('calculator');
+const firstRow = document.getElementById('first-row');
 const numButtons = document.querySelectorAll('[data-num');
 const operationButtons = document.querySelectorAll('[data-operation]');
 const equalsButton = document.querySelector('[data-equal]');
@@ -16,8 +16,9 @@ const calculator = new Calculator(
 );
 
 const changeColorButton = document.createElement('button');
-changeColorButton.innerText = 'Change Color';
-calcBody.appendChild(changeColorButton);
+changeColorButton.innerText = 'Color';
+
+firstRow.insertBefore(changeColorButton, firstRow.firstChild);
 
 // Event Listeners
 numButtons.forEach((button) => {

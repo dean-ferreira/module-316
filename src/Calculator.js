@@ -54,9 +54,6 @@ export class Calculator {
             case '/':
                 result = prev / current;
                 break;
-            case '%':
-                result = current / 100;
-                break;
             default:
                 return;
         }
