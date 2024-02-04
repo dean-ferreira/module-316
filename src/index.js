@@ -10,6 +10,9 @@ const allClearButton = document.querySelector('[data-ac]');
 const prevOperandTextElement = document.querySelector('[data-prev-op]');
 const currOperandTextElement = document.querySelector('[data-curr-op]');
 
+const fileNameInput = document.getElementById('file-name');
+const exportForm = document.getElementById('export');
+
 const calculator = new Calculator(
     prevOperandTextElement,
     currOperandTextElement
@@ -54,6 +57,20 @@ changeColorButton.addEventListener('click', (button) => {
     changeColor();
 });
 
+exportForm.addEventListener('submit', function (event) {
+    const fileName = fileNameInput.value;
+    if (fileName.length < 4) {
+        event.preventDefault();
+        calculator.displayError('Filename must be more than 4 characters');
+    } else if (calculator.history.length === 0) {
+        event.preventDefault();
+        calculator.displayError('History is empty');
+    } else {
+        event.preventDefault();
+        exportFile();
+    }
+});
+
 // Functions
 function changeColor() {
     const display = document.getElementById('display');
@@ -61,4 +78,18 @@ function changeColor() {
     var currentClass = display.className;
     var newIndex = (styles.indexOf(currentClass) + 1) % styles.length;
     display.setAttribute('class', styles[newIndex]);
+}
+
+function exportFile() {
+    var fileName = document.getElementById('file-name').value.trim();
+    fileName += '.txt';
+    var content = calculator.exportHistory(); // Content of the file
+    var blob = new Blob([content], { type: 'text/plain' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName;
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
