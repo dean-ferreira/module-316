@@ -5,6 +5,7 @@ export class Calculator {
         this.currentOperand = '';
         this.previousOperand = '';
         this.operation = '';
+        this.history = [];
     }
 
     appendNumber(number) {
@@ -59,6 +60,7 @@ export class Calculator {
             default:
                 return;
         }
+        this.history.push(`${prev} ${this.operation} ${current} = ${result}`);
         this.currentOperand = result;
         this.operation = '';
         this.previousOperand = '';
@@ -104,5 +106,13 @@ export class Calculator {
 
     delete() {
         this.currentOperand = this.currentOperand.toString().slice(0, -1);
+    }
+
+    displayError(errorMsg) {
+        this.currentOperandTextElement.innerText = errorMsg;
+    }
+
+    exportHistory() {
+        return this.history.join('\n');
     }
 }
