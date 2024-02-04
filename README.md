@@ -1,4 +1,4 @@
-# sba-316
+# sba-316 - [Visit Live Deployment](https://dean-ferreira.github.io/module-316/)
 
 ## About the Project
 
@@ -16,4 +16,3 @@ This assessment measures understanding of the Document Object Model (DOM) and ca
 -   HTML
 -   CSS
 -   JavaScript
--   npm
