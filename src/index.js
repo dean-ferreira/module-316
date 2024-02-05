@@ -73,7 +73,12 @@ exportForm.addEventListener('submit', function (event) {
 });
 
 resetHistoryButton.addEventListener('click', (button) => {
-    calculator.clearHistory();
+    if (calculator.history.length === 0) {
+        window.alert('History is empty');
+    } else {
+        calculator.clearHistory();
+        window.alert('History has been reset');
+    }
 });
 
 // Functions
