@@ -1,7 +1,7 @@
 import { Calculator } from './Calculator.js';
 
 // Constants and Variables
-const firstRow = document.getElementById('first-row');
+const firstRow = window.document.getElementById('first-row');
 const numButtons = document.querySelectorAll('[data-num');
 const operationButtons = document.querySelectorAll('[data-operation]');
 const equalsButton = document.querySelector('[data-equal]');
@@ -12,6 +12,7 @@ const currOperandTextElement = document.querySelector('[data-curr-op]');
 
 const fileNameInput = document.getElementById('file-name');
 const exportForm = document.getElementById('export');
+const resetHistoryButton = document.getElementById('reset');
 
 const calculator = new Calculator(
     prevOperandTextElement,
@@ -61,14 +62,18 @@ exportForm.addEventListener('submit', function (event) {
     const fileName = fileNameInput.value;
     if (fileName.length < 4) {
         event.preventDefault();
-        calculator.displayError('Filename must be more than 4 characters');
+        window.alert('Filename must be more than 4 characters');
     } else if (calculator.history.length === 0) {
         event.preventDefault();
-        calculator.displayError('History is empty');
+        window.alert('History is empty');
     } else {
         event.preventDefault();
         exportFile();
     }
+});
+
+resetHistoryButton.addEventListener('click', (button) => {
+    calculator.clearHistory();
 });
 
 // Functions

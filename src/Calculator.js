@@ -112,4 +112,10 @@ export class Calculator {
     exportHistory() {
         return this.history.join('\n');
     }
+
+    clearHistory() {
+        this.history = [];
+        this.clear();
+        this.updateDisplay();
+    }
 }
